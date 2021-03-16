@@ -9,6 +9,7 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import org.slf4j.Logger;
@@ -31,27 +32,33 @@ public class HelloWorldController {
 
     @Get("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<HelloWorld> findAll() {
+    public HttpResponse<ApiResponse<List<HelloWorld>>> findAll() {
         LOG.info("find all hello world");
-        return helloWorldService.findAll();
+        ApiResponse<List<HelloWorld>> apiResponse = new ApiResponse<>("findAll() response",
+                helloWorldService.findAll());
+        return HttpResponse.ok(apiResponse);
     }
 
     @Get("/find/{text}")
     @Produces(MediaType.APPLICATION_JSON)
-    public HelloWorld findByText(String text) {
+    public HttpResponse<ApiResponse> findByText(@PathVariable String text) {
         LOG.info("rest findByText: {}", text);
-        return helloWorldService.findByText(text);
+        ApiResponse<HelloWorld> apiResponse = new ApiResponse<>("findByText() response",
+                helloWorldService.findByText(text));
+        return HttpResponse.ok(apiResponse);
     }
 
-    @Post()
+    @Post
     @Produces(MediaType.APPLICATION_JSON)
-    public HelloWorld save(@Body HelloWorld hellWorld) {
+    public HttpResponse<ApiResponse> save(@Body HelloWorld hellWorld) {
         LOG.info("rest saving new HelloWorld entity");
-        return helloWorldService.save(hellWorld);
+        ApiResponse<HelloWorld> apiResponse = new ApiResponse<>("HelloWorld domain create response",
+                helloWorldService.save(hellWorld));
+        return HttpResponse.ok(apiResponse);
     }
 
     @Delete("/{id}")
-    public HttpResponse delete(Long id) {
+    public HttpResponse<ApiResponse> delete(Long id) {
         LOG.info("deleting hello world by id: {}", id);
         // TODO: fix me and wrap ApiResponse --> HttpResponseWrapper or something like this
         ApiResponse<Boolean> apiResponse = new ApiResponse<>("HelloWorld domain delete response",
