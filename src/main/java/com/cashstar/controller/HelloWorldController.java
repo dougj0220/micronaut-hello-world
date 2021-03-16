@@ -11,21 +11,23 @@ import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Controller("/hello")
 public class HelloWorldController {
 
     private final static Logger LOG = LoggerFactory.getLogger(HelloWorldController.class);
 
-    @Inject
     private final HelloWorldService helloWorldService;
+
+    @Inject
+    public HelloWorldController(HelloWorldService helloWorldService) {
+        this.helloWorldService = helloWorldService;
+    }
 
     @Get("/list")
     @Produces(MediaType.APPLICATION_JSON)

@@ -3,7 +3,6 @@ package com.cashstar.service.impl;
 import com.cashstar.entity.HelloWorld;
 import com.cashstar.repository.HelloWorldRepository;
 import com.cashstar.service.HelloWorldService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,14 +10,18 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 @Singleton
 public class HelloWorldImpl implements HelloWorldService {
 
     private final static Logger LOG = LoggerFactory.getLogger(HelloWorldService.class);
 
-    @Inject
     private final HelloWorldRepository helloWorldRepository;
+
+    @Inject
+    public HelloWorldImpl(HelloWorldRepository helloWorldRepository) {
+        this.helloWorldRepository = helloWorldRepository;
+    }
 
     public List<HelloWorld> findAll() {
         LOG.info("finding all hello world entities");
