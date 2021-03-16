@@ -30,7 +30,8 @@ public class HelloWorldImpl implements HelloWorldService {
 
     public HelloWorld findByText(String text) {
         LOG.info("finding hello world by text: {}", text);
-        return helloWorldRepository.findByText(text);
+        return helloWorldRepository.findByText(text)
+                .orElse(null);
     }
 
     public HelloWorld save(HelloWorld helloWorld) {

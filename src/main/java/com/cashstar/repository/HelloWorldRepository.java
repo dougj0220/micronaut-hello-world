@@ -5,9 +5,10 @@ import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface HelloWorldRepository extends JpaRepository<HelloWorld, Long> {
-    HelloWorld findByText(String text);
+    Optional<HelloWorld> findByText(String text);
 }
