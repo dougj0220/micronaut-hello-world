@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS micronaut;
+CREATE SCHEMA `micronaut` DEFAULT CHARACTER SET utf8 ;
+USE `micronaut`;
 CREATE TABLE `hello_world` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) DEFAULT NULL,
